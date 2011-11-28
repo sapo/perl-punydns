@@ -9,7 +9,7 @@ use Readonly;
 
 =head1 NAME
 
-DNS::PunyDNS - Interact with your SAPO dynamic dns entries
+DNS::PunyDNS - Interact with your SAPO dynamic DNS entries
 
 =head1 VERSION
 
@@ -30,7 +30,7 @@ Readonly::Scalar my $UPDATEDNS   => 'UpdateDns';
 
 =head1 SYNOPSIS
 
-This module allows you to create/remove/update your SAPO dynamic dns entries (L<http://sl.pt>)
+This module allows you to create/remove/update your SAPO dynamic DNS entries (L<http://sl.pt>).
 
 	use DNS::PunyDNS;
 
@@ -39,7 +39,7 @@ This module allows you to create/remove/update your SAPO dynamic dns entries (L<
 	my $added = $dns->add_dns( $domain, $ip, $record_type );
 
 	if (!$added) {
-		print STDERR $dns->{'error'};
+		warn STDERR $dns->{'error'};
 	}
     ...
 
@@ -48,55 +48,55 @@ This module allows you to create/remove/update your SAPO dynamic dns entries (L<
 
 =head2 new
 
-Creates a new DNS::PunyDNS object
+Creates a new DNS::PunyDNS object.
 
 
 	DNS::PunyDNS->new( { 'username' => '<sapousername>', 'password' => '<sapopassword>' } )
 
-Your SAPO username and password must be provided
+Your SAPO username and password must be provided.
 
 =head2 add_dns
 
-Adds a dynamic dns entry
+Adds a dynamic DNS entry.
 
-	$dns->add_dns( $domain, $ip, $record_type )
+	$dns->add_dns( $domain, $ip, $record_type );
 
-This function returns false if the operation fails , the cause of the failure is set in  $dns->{'error'}
+This function returns false if the operation fails, the cause of the failure is set in C<< $dns->{'error'} >>.
 
 =head2 update_dns
 
-Updates a dynamic dns entry
+Updates a dynamic DNS entry.
 
-	$dns->update_dns( $domain, $ip, $record_type , [$old_record_type])
+	$dns->update_dns( $domain, $ip, $record_type, [$old_record_type]);
 
-This function returns false if the operation fails , the cause of the failure is set in  $dns->{'error'}
+This function returns false if the operation fails, the cause of the failure is set in C<< $dns->{'error'} >>.
 
 =head2 get_dns_info
 
-Gets dns information of a specific entrry
+Gets DNS information of a specific entrry.
 
 	my $info = $dns->get_dns_info( $domain );
 
 
 =head2 list_dns 
 
-Gets all the dynamic dns entry names  associated with your account
+Gets all the dynamic DNS entry names associated with your account.
 
 	my $list = $dns->list_dns();
 
 =head2 list_dns_info
 
-Gets all the dynamic dns entrys information
+Gets all the dynamic DNS entrys information.
 
  	my $list_info = $dns->list_dns_info(); 
 
 =head2 remove_dns
 
-Removes a dns entry 
+Removes a DNS entry.
 
-	$removed = $dns->remove_dns( $domain, [$record_type] )
+	$removed = $dns->remove_dns( $domain, [$record_type] );
 
-This function returns false if the operation fails , the cause of the failure is set in $dns->{'error'}
+This function returns false if the operation fails, the cause of the failure is set in C<< $dns->{'error'} >>.
 
 
 =cut
@@ -249,11 +249,11 @@ Bruno Martins, C<< <bruno-martins at telecom.pt> >>
 
 =head1 NOTES
 
-=head2 Errors
+=head2 Handling Errors
 
 There are several ways that the operations can fail, for example, you can try to add a dns entry that already exists or you can try to update a dns entry that is not under your account, etc. 
 
-Each time an operation is executed and raises an error $dns->{'error'} is set with the error reason,
+Each time an operation is executed and raises an error C<< $dns->{'error'} >> is set with the error reason.
 
 =head2 SAPO dynamic dns API authentication
 
@@ -262,15 +262,6 @@ SAPO dynamic dns API is only available over https, so your username and password
 =head2 Record Types
 
 SAPO dynamic dns API only allows A and AAAA record types
-
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-punyurl-dns at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=DNS::PunyDNS>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
 
 
 =head1 SUPPORT
@@ -284,18 +275,6 @@ You can also look for information at:
 
 =over 4
 
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=DNS-PunyDNS>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/DNS::PunyDNS>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/DNS::PunyDNS>
-
 =item * Search CPAN
 
 L<http://search.cpan.org/dist/DNS::PunyDNS/>
@@ -305,7 +284,7 @@ L<http://search.cpan.org/dist/DNS::PunyDNS/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2011 Bruno Martins  C<< <bruno-martins at telecom.pt> >> and SAPO L<http://www.sapo.pt>, all rights reserved.
+Copyright 2011 Bruno Martins C<< <bruno-martins at telecom.pt> >> and SAPO L<http://www.sapo.pt>, all rights reserved.
 
 
 This program is free software; you can redistribute it and/or modify it
