@@ -255,13 +255,13 @@ There are several ways that the operations can fail, for example, you can try to
 
 Each time an operation is executed and raises an error C<< $dns->{'error'} >> is set with the error reason.
 
-=head2 SAPO dynamic dns API authentication
+=head2 SAPO dynamic DNS API authentication
 
-SAPO dynamic dns API is only available over https, so your username and password are not sent I<clean>
+SAPO dynamic DNS API is only available over https, so your username and password are not sent I<clean>
 
 =head2 Record Types
 
-SAPO dynamic dns API only allows A and AAAA record types
+SAPO dynamic DNS API only allows A and AAAA record types
 
 
 =head1 SUPPORT
