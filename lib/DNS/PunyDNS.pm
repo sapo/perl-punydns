@@ -39,7 +39,7 @@ This module allows you to create/remove/update your SAPO dynamic DNS entries (L<
 	my $added = $dns->add_dns( $domain, $ip, $record_type );
 
 	if (!$added) {
-		warn STDERR $dns->{'error'};
+		warn $dns->{'error'};
 	}
     ...
 
