@@ -1,4 +1,4 @@
-package DNS::PunyDNS
+package DNS::PunyDNS;
 
 use 5.006;
 use strict;
