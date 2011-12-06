@@ -263,6 +263,9 @@ SAPO dynamic DNS API is only available over https, so your username and password
 
 SAPO dynamic DNS API only allows A and AAAA record types
 
+=head2 Domain names
+
+At this time, SAPO dynamic DNS only allows .sl.pt domains
 
 =head1 SUPPORT
 
@@ -291,8 +294,8 @@ This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
 by the Free Software Foundation; or the Artistic License.
 
-See http://dev.perl.org/licenses/ for more information.
 
+See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
