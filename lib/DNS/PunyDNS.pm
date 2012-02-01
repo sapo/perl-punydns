@@ -13,11 +13,11 @@ DNS::PunyDNS - Interact with your SAPO dynamic DNS entries
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 Readonly::Scalar my $BASE_URL => 'https://services.sapo.pt/PunyUrl/DNS/';
 
@@ -122,7 +122,7 @@ sub update_dns {
         'record_type' => $record_type,
     );
     $args{'old_record_type'} = $old_record_type if $old_record_type;
-    my $response = $self->get_it( $UPDATEDNS, \%args );
+    my $response = $self->_get_it( $UPDATEDNS, \%args );
     return $response;
 
 }
@@ -132,7 +132,7 @@ sub remove_dns {
     die "You must provide a domain" if !$domain;
     my %args = ( 'domain' => $domain );
     $args{'record_type'} = $record_type if $record_type;
-    my $response = $self->get_it( $REMOVEDNS, \%args );
+    my $response = $self->_get_it( $REMOVEDNS, \%args );
     return 0 if ( $self->{'error'} );
     return 1;
 }
@@ -142,7 +142,7 @@ sub add_dns {
     die "You must provide a domain"      if !$domain;
     die "You must provide an IP address" if !$ip;
     die "You must provide a Record Type" if !$record_type;
-    my $response = $self->get_it(
+    my $response = $self->_get_it(
         $ADDDNS,
         {
             'domain'      => $domain,
@@ -156,7 +156,7 @@ sub add_dns {
 sub get_dns_info {
     my ( $self, $domain ) = @_;
     die "You must provide a domain to check" if ( !$domain );
-    my $response = $self->get_it( $GETDNSINFO, { 'domain' => $domain } );
+    my $response = $self->_get_it( $GETDNSINFO, { 'domain' => $domain } );
     return if ( $self->{'error'} );
     my @domain_info = ();
     my $info        = $response->{'info'};
@@ -182,7 +182,7 @@ sub get_dns_info {
 
 sub list_dns_info {
     my ($self)   = @_;
-    my $response = $self->get_it($LISTDNSINFO);
+    my $response = $self->_get_it($LISTDNSINFO);
     my @domains  = ();
     if ( $response->{'domains'}{'domain'} ) {
         if ( ref( $response->{'domains'}{'domain'} ) eq 'ARRAY' ) {
@@ -196,7 +196,7 @@ sub list_dns_info {
 
 sub list_dns {
     my ($self)   = @_;
-    my $response = $self->get_it($LISTDNS);
+    my $response = $self->_get_it($LISTDNS);
     my @domains  = ();
     if ( $response->{'domain'} ) {
         if ( ref( $response->{'domains'} ) eq 'ARRAY' ) {
@@ -208,7 +208,7 @@ sub list_dns {
     return \@domains;
 }
 
-sub build_request {
+sub _build_request {
     my ( $self, $endpoint, $args ) = @_;
     $args->{'ESBUsername'} = $self->{'username'};
     $args->{'ESBPassword'} = $self->{'password'};
@@ -220,10 +220,10 @@ sub build_request {
     return $url;
 }
 
-sub get_it {
+sub _get_it {
     my ( $self, $endpoint, $args ) = @_;
 
-    my $url = $self->build_request( $endpoint, $args );
+    my $url = $self->_build_request( $endpoint, $args );
     delete $self->{'error'};
 
     my $ua       = new LWP::UserAgent();
@@ -241,7 +241,7 @@ sub get_it {
         die "There was a problem with the request\n" . $response->status_line;
     }
 
-} ## end sub get_it
+} ## end sub _get_it
 
 =head1 AUTHOR
 
